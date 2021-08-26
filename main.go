@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"mime/multipart"
 	"net/http"
@@ -78,6 +79,8 @@ func main() {
 		return
 	}
 
-	log.Println("rsp:", rsp.Status)
+	body, err := ioutil.ReadAll(rsp.Body)
+	defer rsp.Body.Close()
+	log.Println(string(body))
 
 }
